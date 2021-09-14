@@ -9,65 +9,72 @@ namespace Hangman
    public class Game
     {
 
-        public int remainingGuesses { get; set; }
-        public List<char> correctGuesses { get; set; }
-        public List<char> failedGuesses { get; set; }
-        public string word { get; set; }
+        public int RemainingGuesses { get; set; }
+        public List<char> CorrectGuesses { get; set; }
+        public List<char> FailedGuesses { get; set; }
+        public string Word { get; set; }
 
         public Game()
         {
-            remainingGuesses = 6;
-            word = RandomWord.next(RandomWord.dictionary);
-            correctGuesses = new List<char>();
-            failedGuesses = new List<char>();
+            RemainingGuesses = 6;
+            Word = RandomWord.Next(RandomWord.dictionary);
+            CorrectGuesses = new List<char>();
+            FailedGuesses = new List<char>();
         }
 
-        public void start()
+        public void Start()
 
         {
-            //Game game = new();
+           
             
-            UserIODisplay.welcomeMessage();
+            UserIODisplay.WelcomeMessage();
 
             do
             {
-                printGameBoard();
+                PrintGameBoard();
 
-                char chosenChar = UserIOInput.getLetterFromUser();
+                char chosenChar = UserIOInput.GetLetterFromUser();
 
-                if (word.Contains(chosenChar))
+                if (Word.Contains(chosenChar) && CorrectGuesses.Contains(chosenChar) == false)
                 {
-                    correctGuesses.Add(chosenChar);
-                    if (checkIfWon())
+                    CorrectGuesses.Add(chosenChar);
+                    if (CheckIfWon())
                     {
                         Console.WriteLine("You won!!!");
                         break;
                     }
                 } else
                 {
-                    failedGuesses.Add(chosenChar);
-                    remainingGuesses--;
+                   if (FailedGuesses.Contains(chosenChar) == false && CorrectGuesses.Contains(chosenChar) == false)
+                    {
+                        FailedGuesses.Add(chosenChar);
+                        RemainingGuesses--;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nThis letter was already selected.\n");
+                    }
                 }
             }
-            while (remainingGuesses > 0);
+            while (RemainingGuesses > 0);
 
-            if (remainingGuesses == 0)
+            if (RemainingGuesses == 0)
             {
                 Console.WriteLine("Game over!");
             }
 
         }
 
-        private void printGameBoard()
+        private void PrintGameBoard()
         {
-            UserIODisplay.printGameBoard(correctGuesses, word, remainingGuesses, failedGuesses);
+            UserIODisplay.PrintGameBoard(CorrectGuesses, Word, RemainingGuesses, FailedGuesses);
         }
 
-        private bool checkIfWon()
+        private bool CheckIfWon()
         {
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < Word.Length; i++)
             {
-                if (correctGuesses.Contains(word[i]) == false)
+                if (CorrectGuesses.Contains(Word[i]) == false)
                 {
                     return false;
                 }

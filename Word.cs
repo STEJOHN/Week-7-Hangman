@@ -8,13 +8,13 @@ namespace Hangman
 {
     public class RandomWord
     {
-        public static List<string> dictionary = new() { "LEAP", "Cat", "Dog", "Dendrochronology", "Microsoft", "Windows", "Datacenter", "Computer" };
+        public static List<string> dictionary = new() { "LEAP", "Cat", "Dog", "Dendrochronology", "Microsoft", "Windows", "Datacenter", "Computer", "Football", "Soccer", "Apple", "Azure" };
 
-        public static string next(List<string> dictionary)
+        public static string Next(List<string> dictionary)
         {
             Random random = new();
 
-            return dictionary[random.Next(0,dictionary.Count)];
+            return dictionary[random.Next(0, dictionary.Count)].ToLower();
         }
         
     }

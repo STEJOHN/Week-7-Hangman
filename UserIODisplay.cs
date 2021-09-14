@@ -9,16 +9,18 @@ namespace Hangman
     public class UserIODisplay
     {
 
-        public static void welcomeMessage()
+        public static void WelcomeMessage()
         {
             var sb = new StringBuilder();
             sb.AppendLine("Welcome to Hangperson.");
-            sb.AppendLine("");
+            sb.AppendLine("\n\n\n");
+            sb.AppendLine("To play, please enter any letter.");
+            sb.AppendLine("Try to guess the word before running out of chances. ");
 
             Console.WriteLine(sb.ToString());
         }
 
-        public static void printGameBoard(List<char> correctLetters, string word, int remainingGuesses, List<char> failedGuesses)
+        public static void PrintGameBoard(List<char> correctLetters, string word, int remainingGuesses, List<char> failedGuesses)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < word.Length; i++)
@@ -41,10 +43,10 @@ namespace Hangman
                 
             }
 
-            sb.Append("\t\tGuesses left: "+ remainingGuesses);
-
-            sb.AppendLine("\t\tGuessed letters: " + failedGuesses);
-
+            sb.Append("\t\tGuesses remaining: "+ remainingGuesses);
+            sb.Append("\t\tGuessed letters: ");
+            sb.AppendJoin(" ", failedGuesses);
+            sb.AppendLine();
             Console.WriteLine(sb.ToString());
 
         }
